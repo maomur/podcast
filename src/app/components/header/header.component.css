@@ -1,0 +1,11 @@
+.header {
+    display: flex;
+    width: 70%;
+    justify-content: start;
+    margin: 0 auto;
+}
+
+.header h1 {
+    color: var(--primary);
+    font-size: 1.4em;
+}
