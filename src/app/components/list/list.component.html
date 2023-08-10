@@ -1,1 +1,15 @@
-<p>List works!</p>
+<div class="filter">
+    <div class="filter__badge">{{ filteredArray?.length }}</div>
+    <input (keyup)="updateFilteredItems()" class="filter__input" type="text" placeholder="Filter podcasts..."
+        [(ngModel)]="searchText">
+</div>
+
+<section class="list">
+
+    <div class="list__box" *ngFor="let podcast of filteredArray">
+        <img class="list__box__img" [src]="podcast['im:image'][2]?.['label']" alt="Imagen">
+        <h2 class="list__box__title">{{podcast.title.label | removeAfter | uppercase}}</h2>
+        <p class="list__box__autor">Author: {{podcast['im:artist'].label}}</p>
+    </div>
+
+</section>
