@@ -5,7 +5,7 @@ import { PodcastDetailsComponent } from './components/podcast-details/podcast-de
 
 const routes: Routes = [
   { path: "", component: ListComponent },
-  { path: "podcast", component: PodcastDetailsComponent },
+  { path: "podcast/:idPodcast", component: PodcastDetailsComponent },
   { path: "list", component: ListComponent }
 ];
 
