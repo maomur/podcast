@@ -6,7 +6,7 @@ import { PodcastDetailsComponent } from './components/podcast-details/podcast-de
 const routes: Routes = [
   { path: "", component: ListComponent },
   { path: "podcast/:idPodcast", component: PodcastDetailsComponent },
-  { path: "list", component: ListComponent }
+  { path: "list/:id", component: ListComponent }
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { PodcastContents, PodcastDetails } from 'src/app/interfaces/podcast-contents';
 import { PodcastsService } from 'src/app/services/podcasts.service';
 
 @Component({
@@ -9,17 +10,37 @@ import { PodcastsService } from 'src/app/services/podcasts.service';
 })
 export class PodcastDetailsComponent implements OnInit {
 
-  public podcastDetails: any;
+  public podcastDetails!: PodcastDetails[];
+  public podcasts: any;
+  public filteredPodcasts: any;
+  public trackName!: string;
+  public artistName!: string;
+  public image!: string;
+  public collectionName!: string;
+  public summary!: string;
 
-  constructor(private podcastService: PodcastsService, private activatedRoute: ActivatedRoute) { }
+
+  constructor(private PodcastService: PodcastsService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+
     this.activatedRoute.params.subscribe(params => {
       const podcastId = params['idPodcast'];
-      console.log('PODCAST ID', podcastId)
-
+      console.log('PODCAST ID:', podcastId)
       this.fetchPodcastDetails(podcastId);
-    });
+
+      this.PodcastService.getData().subscribe(
+        data => {
+          this.podcasts = data.feed.entry.find((artist: any) => {
+            return podcastId === artist.id.attributes['im:id'];
+          })
+          console.log('PRIMER OBJETO:', this.podcasts)
+          console.log('SUMARY:', this.podcasts.summary.label)
+          this.summary = this.podcasts.summary.label;
+          this.image = this.podcasts['im:image'][2].label;
+        }
+      )
+    })
   }
 
   fetchPodcastDetails(podcastId: string) {
@@ -32,9 +53,17 @@ export class PodcastDetailsComponent implements OnInit {
         throw new Error('Network response was not ok.');
       })
       .then(data => {
-        this.podcastDetails = data.contents;
-        console.log(this.podcastDetails)
+        console.log(JSON.parse(data.contents));
+
+        let podcasts: PodcastDetails[] = JSON.parse(data.contents).results;
+        this.podcastDetails = podcasts
+
       })
       .catch(error => console.error('Error:', error));
+
+
   }
+
+
+
 }
