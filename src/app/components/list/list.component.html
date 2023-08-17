@@ -7,12 +7,12 @@
 <section class="list">
 
     <div class="list__box" *ngFor="let podcast of filteredArray">
-        <img class="list__box__img" [src]="podcast['im:image'][2]?.['label']" alt="Imagen">
+        <a [routerLink]="['/podcast/' + podcast.id.attributes['im:id']]" class="list__box__imgDiv"><img class=""
+                [src]="podcast['im:image'][2]?.['label']" alt="{{podcast.title.label}}"></a>
         <a [routerLink]="['/podcast/' + podcast.id.attributes['im:id']]">
             <h2 class="list__box__title">{{podcast.title.label | removeAfter | uppercase}}</h2>
         </a>
         <p class="list__box__autor">Author: {{podcast['im:artist']?.label}}</p>
-        <h4>ID: {{podcast.id.attributes['im:id']}}</h4>
     </div>
 
 </section>

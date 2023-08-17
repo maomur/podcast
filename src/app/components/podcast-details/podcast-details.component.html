@@ -1,29 +1,19 @@
 <section class="podcast">
 
-    <div class="podcast__column podcast__descriptionBox">
-        <img class="list__box__img" [src]="image" alt="Imagen">
-        <hr>
-        <h2>{{artistName}} </h2>
-        <h3>{{collectionName}}</h3>
+    <div class="leftBox">
+        <div class="leftBox__imgContainer">
+            <img class="leftBox__img" [src]="artwork" alt="">
+        </div>
+        <H2>{{artistName}}</H2>
+        <h3>by {{collectionName}}</h3>
         <hr>
         <h2>Description</h2>
         <p>{{summary}}</p>
     </div>
-    <div class="podcast__episodesBox">
-        <p>Episodes: 66</p>
-        <div *ngFor="let podcast of podcastDetails">
-            <div class="podcast__column">
-                <div class="column__content">
-                    <h4>Title</h4>
-                    <h4>Date</h4>
-                    <h4>Duration</h4>
-                </div>
-                <div class="column__content">
-                    <h4>{{podcast.trackName}}</h4>
-                    <h4>{{podcast.releaseDate}}</h4>
-                    <h4>{{podcast.trackTimeMillis}}</h4>
-                </div>
-            </div>
-        </div>
+
+    <div class="rigthBox">
+        <app-episodes (showEpisodes)="hideEpisodes($event)" class="rigthBox" [podcastDetails]="podcastDetails"
+            *ngIf="showEpisodes"></app-episodes>
+        <router-outlet></router-outlet>
     </div>
 </section>

@@ -1,6 +1,6 @@
 .filter {
     display: flex;
-    width: 70%;
+    width: 90%;
     justify-content: flex-end;
     margin: 0 auto;
     margin-top: 2em;
@@ -27,7 +27,7 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     gap: 1.5em;
 }
@@ -42,10 +42,17 @@
     width: 200px;
 }
 
-.list__box__img {
+.list__box:hover {
+    box-shadow: 0px 0px 10px rgb(149, 151, 226);
+}
+
+.list__box__imgDiv {
     margin-top: 2em;
     position: inherit;
-    top: -100px;
+    top: -90px;
+}
+
+.list__box__imgDiv img {
     border-radius: 50%;
     width: 60%;
 }
@@ -57,6 +64,6 @@
 }
 
 .list__box__autor {
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: var(--light-grey);
 }

@@ -7,10 +7,16 @@ export interface Results {
     trackName: string,
     'im:releaseDate': {},
     collectionName: string
+    episodeUrl: string
 }
 
 export interface PodcastDetails {
     trackName: string,
+    description: string,
     releaseDate: string,
-    trackTimeMillis: number
+    trackTimeMillis: number,
+    artworkUrl600: string,
+    episodeGuid: string,
+    previewUrl: string,
+    collectionId: string
 }
