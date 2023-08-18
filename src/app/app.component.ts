@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SpinnerserviceService } from './services/spinnerservice.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,11 @@ export class AppComponent {
   public isLoading: boolean = false;
 
   constructor() {
-
+    if (environment.production) {
+      console.log('ESTÁS EN PRODUCCIÓN')
+    } else {
+      console.log('ESTÁS EN MODO DESARROLLO')
+    }
   }
 
 
