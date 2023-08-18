@@ -11,9 +11,4 @@
         <p>{{summary}}</p>
     </div>
 
-    <div class="rigthBox">
-        <app-episodes (showEpisodes)="hideEpisodes($event)" class="rigthBox" [podcastDetails]="podcastDetails"
-            *ngIf="showEpisodes"></app-episodes>
-        <router-outlet></router-outlet>
-    </div>
 </section>

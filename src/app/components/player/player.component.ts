@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PodcastDetails } from 'src/app/interfaces/podcast-contents';
 import { PodcastsService } from 'src/app/services/podcasts.service';
 
@@ -13,23 +14,18 @@ export class PlayerComponent implements OnInit {
   public trackName!: string;
   public description!: string;
 
+  constructor(private PodcastService: PodcastsService, private activatedRoute: ActivatedRoute) { }
+
+
   ngOnInit() {
-    const currentEpisodeData = this.PodcastService.episodes?.find(episode => {
+    const loadedEpisodedata = this.PodcastService.episodes?.find(episode => {
       return episode.episodeGuid === this.PodcastService.selectedEpisode;
     })
-    console.log('CURRENT', currentEpisodeData)
 
-    if (currentEpisodeData) {
-      this.previewUrl = currentEpisodeData.previewUrl;
-      this.trackName = currentEpisodeData.trackName;
-      this.description = currentEpisodeData.description;
+    if (loadedEpisodedata) {
+      this.previewUrl = loadedEpisodedata.previewUrl;
+      this.trackName = loadedEpisodedata.trackName;
+      this.description = loadedEpisodedata.description;
     }
-
-
   }
-
-
-  constructor(private PodcastService: PodcastsService) { }
-
-
 }

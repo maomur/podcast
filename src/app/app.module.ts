@@ -12,6 +12,7 @@ import { MilisecondsToMinutesPipe } from './pipes/miliseconds-to-minutes.pipe';
 import { CommonModule } from '@angular/common';
 import { EpisodesComponent } from './components/episodes/episodes.component';
 import { PlayerComponent } from './components/player/player.component';
+import { PodcastComponent } from './components/podcast/podcast.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { PlayerComponent } from './components/player/player.component';
     MilisecondsToMinutesPipe,
     EpisodesComponent,
     PlayerComponent,
+    PodcastComponent,
   ],
   imports: [
     BrowserModule,

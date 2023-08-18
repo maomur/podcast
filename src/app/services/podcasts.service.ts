@@ -10,7 +10,7 @@ import { PodcastDetails } from '../interfaces/podcast-contents';
 export class PodcastsService {
 
   private apiUrl = 'https://itunes.apple.com/us/rss/toppodcasts/limit=100/genre=1310/json'
-  private episodesUrl = 'https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=';
+  //private episodesUrl = 'https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=';
 
   public episodesSubjet = new BehaviorSubject<PodcastDetails[] | undefined>([]);
 
@@ -24,14 +24,12 @@ export class PodcastsService {
   }
 
   getEpisodes(podcastId: string): void {
-    console.log('URL API', this.episodesUrl + `${podcastId}&media=podcast&entity=podcastEpisode&limit=20`)
+    // console.log('URL API', this.episodesUrl + `${podcastId}&media=podcast&entity=podcastEpisode&limit=20`)
 
-    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`)}`;
+    const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=100`)}`;
 
     this.httpClient.get<any>(apiUrl).subscribe((data: any) => {
-      console.log('GET EPISODES DATA', data);
       const parseData = JSON.parse(data.contents).results;
-      console.log('PARSE DATA', parseData)
       this.episodesSubjet.next(parseData);
     })
   }
@@ -43,10 +41,5 @@ export class PodcastsService {
   saveSelectedEpisode(episodeGuid: string) {
     this.selectedEpisode = episodeGuid;
   }
-
-
-
-
-
 
 }

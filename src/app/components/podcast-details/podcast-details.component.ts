@@ -15,7 +15,7 @@ export class PodcastDetailsComponent implements OnInit {
   public filteredPodcasts: any;
   public trackName!: string;
   public artistName!: string;
-  public artwork!: string;
+  public artwork: string = "";
   public collectionName!: string;
   public summary!: string;
   public previewUrl!: string;
@@ -27,29 +27,24 @@ export class PodcastDetailsComponent implements OnInit {
   ngOnInit(): void {
 
     this.activatedRoute.params.subscribe(params => {
-      const podcastId = params['idPodcast'];
-
+      const podcastId = this.activatedRoute.firstChild?.snapshot.params['idPodcast']
       this.PodcastService.getEpisodes(podcastId);
-
       this.PodcastService.episodesSubjet.subscribe(data => {
 
-        if (data) {
+        //If data comes from the http it means it has a length
+        //Otherwhise its the default next from my subject
+        if (data?.length) {
           this.podcastDetails = data;
           this.artwork = this.podcastDetails[0].artworkUrl600;
           this.previewUrl = this.podcastDetails[1].previewUrl;
         }
-
       })
-
-
-      // this.fetchPodcastDetails(podcastId);
 
       this.PodcastService.getData().subscribe(
         data => {
           this.podcasts = data.feed.entry.find((artist: any) => {
             return podcastId === artist.id.attributes['im:id'];
           })
-          console.log('PRIMER OBJETO:', this.podcasts)
           this.summary = this.podcasts.summary.label;
           this.artistName = this.podcasts['im:artist'].label;
           this.collectionName = this.podcasts.title.label;
@@ -58,31 +53,8 @@ export class PodcastDetailsComponent implements OnInit {
     })
   }
 
-  // fetchPodcastDetails(podcastId: string) {
-  // const apiUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://itunes.apple.com/lookup?id=${podcastId}&media=podcast&entity=podcastEpisode&limit=20`)}`;
-
-
-  //   fetch(apiUrl)
-  //     .then(response => {
-  //       if (response.ok) return response.json();
-  //       throw new Error('Network response was not ok.');
-  //     })
-  //     .then(data => {
-  //       console.log('SEGUNDO OBJETO', JSON.parse(data.contents));
-
-  //       let podcasts: PodcastDetails[] = JSON.parse(data.contents).results;
-  //       this.podcastDetails = podcasts;
-  //       this.artwork = this.podcastDetails[0].artworkUrl600;
-  //       this.previewUrl = this.podcastDetails[1].previewUrl;
-  //       console.log(this.previewUrl)
-  //     })
-  //     .catch(error => console.error('Error:', error));
-  // }
-
   hideEpisodes(showEpisodes: boolean) {
     this.showEpisodes = showEpisodes;
   }
-
-
 
 }
