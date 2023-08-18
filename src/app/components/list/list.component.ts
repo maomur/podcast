@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { PodcastsService } from 'src/app/services/podcasts.service';
 
 @Component({
@@ -6,17 +6,22 @@ import { PodcastsService } from 'src/app/services/podcasts.service';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.css']
 })
-export class ListComponent implements OnInit {
+export class ListComponent implements OnInit, AfterViewInit {
   public array!: any;
   public filteredArray!: any;
   public countFilteredArray!: number;
   public searchText!: string;
 
+
   constructor(private PodcastService: PodcastsService) { }
+  ngAfterViewInit(): void {
+    this.PodcastService.hideBlueDot();
+  }
 
   ngOnInit(): void {
     this.PodcastService.getData().subscribe(
       data => {
+        //All Podcasts
         this.array = data.feed.entry;
         this.filteredArray = this.array;
         this.updateFilteredItems()

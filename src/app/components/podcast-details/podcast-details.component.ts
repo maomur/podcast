@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PodcastContents, PodcastDetails } from 'src/app/interfaces/podcast-contents';
+import { PodcastDetails } from 'src/app/interfaces/podcast-contents';
 import { PodcastsService } from 'src/app/services/podcasts.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { PodcastsService } from 'src/app/services/podcasts.service';
   templateUrl: './podcast-details.component.html',
   styleUrls: ['./podcast-details.component.css']
 })
-export class PodcastDetailsComponent implements OnInit {
+export class PodcastDetailsComponent implements OnInit, AfterViewInit {
 
   public podcastDetails: PodcastDetails[] = [];
   public podcasts: any;
@@ -24,13 +24,15 @@ export class PodcastDetailsComponent implements OnInit {
 
   constructor(private PodcastService: PodcastsService, private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
+    this.PodcastService.showBlueDot();
+  }
 
+  ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       const podcastId = this.activatedRoute.firstChild?.snapshot.params['idPodcast']
       this.PodcastService.getEpisodes(podcastId);
       this.PodcastService.episodesSubjet.subscribe(data => {
-
         //If data comes from the http it means it has a length
         //Otherwhise its the default next from my subject
         if (data?.length) {

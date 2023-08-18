@@ -8,16 +8,19 @@
             <h3>Date</h3>
             <h3>Duration</h3>
         </div>
-        <div class="column__content rigthBox__content__items" *ngFor="let podcast of podcastDetails, let i = index"
-            [ngClass]="i % 2 === 0? '__items__white': '__items__grey'">
-            <ng-template [ngIf]="i > 0">
-                <a [routerLink]="['episode/' +  podcast.episodeGuid]" (click)="onSelectEpisodes(podcast)">
-                    <p>{{podcast.trackName}}</p>
-                </a>
-                <p>{{podcast.releaseDate | date: 'dd/mm/yyyy'}}</p>
-                <p>{{podcast.trackTimeMillis | milisecondsToMinutes}}</p>
-            </ng-template>
-        </div>
+        <app-spinner *ngIf="isLoading"></app-spinner>
+        <ng-template [ngIf]="!isLoading">
+            <div class="column__content rigthBox__content__items" *ngFor="let podcast of podcastDetails, let i = index"
+                [ngClass]="i % 2 === 0? '__items__white': '__items__grey'">
+                <ng-template [ngIf]="i > 0">
+                    <a [routerLink]="['episode/' +  podcast.episodeGuid]" (click)="onSelectEpisodes(podcast)">
+                        <p>{{podcast.trackName}}</p>
+                    </a>
+                    <p>{{podcast.releaseDate | date: 'dd/mm/yyyy'}}</p>
+                    <p>{{podcast.trackTimeMillis | milisecondsToMinutes}}</p>
+                </ng-template>
+            </div>
+        </ng-template>
     </div>
 
 

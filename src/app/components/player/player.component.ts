@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PodcastDetails } from 'src/app/interfaces/podcast-contents';
 import { PodcastsService } from 'src/app/services/podcasts.service';
@@ -8,13 +8,18 @@ import { PodcastsService } from 'src/app/services/podcasts.service';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.css']
 })
-export class PlayerComponent implements OnInit {
+export class PlayerComponent implements OnInit, AfterViewInit {
 
   public previewUrl!: string;
   public trackName!: string;
   public description!: string;
 
   constructor(private PodcastService: PodcastsService, private activatedRoute: ActivatedRoute) { }
+
+
+  ngAfterViewInit(): void {
+
+  }
 
 
   ngOnInit() {
@@ -28,4 +33,5 @@ export class PlayerComponent implements OnInit {
       this.description = loadedEpisodedata.description;
     }
   }
+
 }
